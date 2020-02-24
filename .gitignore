@@ -1,2 +1,3 @@
-sources.txt
+/sources.txt
 /node_modules
+.env

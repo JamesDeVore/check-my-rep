@@ -11,10 +11,14 @@
     "react-scripts": "3.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "npm-run-all --parallel watch:css start:react",
+  "build": "npm-run-all build:css build:react",
+  "start:react": "react-scripts start",
+  "watch:css": "postcss src/styles/index.css -o src/index.css -w",
+  "build:react": "react-scripts build",
+  "build:css": "postcss src/styles/index.css -o src/index.css",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +34,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "proxy": "http://localhost:8000",
+  "devDependencies": {
+    "autoprefixer": "^9.7.4",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^7.1.0",
+    "tailwindcss": "^1.2.0"
   }
 }
