@@ -26,7 +26,7 @@ export default function BasicInfo(props) {
   }
 
   return (
-    <div className="border rounded p-2 w-full bg-gray-100 text-gray-800 border-black">
+    <div className="border rounded p-2 bg-gray-100 text-gray-800 border-black">
       <h2 className="font-bold text-xl border-b-2 border-gray-500">
         {member.first_name} {member.last_name}
       </h2>
@@ -39,7 +39,7 @@ export default function BasicInfo(props) {
         <TwitterTimelineEmbed
           sourceType="profile"
           screenName={props.member.twitter_account}
-          options={{ height: 400, width:500 }}
+          options={{ height: 250, width:500 }}
           />
           
           </div>

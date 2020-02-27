@@ -1,27 +1,30 @@
-import React, {useState, useEffect} from 'react'
-import moment from 'moment'
-import PieChart from './sub/PieChart'
+import React, { useState, useEffect } from "react";
+import moment from "moment";
+import PieChart from "./sub/PieChart";
 
 export default function InitialStats(props) {
-  let {member} = props
+  let { member } = props;
+  // member.roles = member.roles.concat(member.roles)
 
   return (
-    <div className="flex flex-row">
-        <div className="flex lg:flex-row w-full flex-col border">
-          {member.roles.map((role, index) => {
-              let partyColors = { main: "gray-700" };
-              switch (role.party) {
-                case "R":
-                  partyColors.main = "#e53e3e"; //bg-red-600
-                  partyColors.opposing = "#3182ce";
-                case "D":
-                  partyColors.main = "#3182ce"; //bg-blue-600
-                  partyColors.opposing = "#e53e3e";
-              }
-            return(
+      <div className="grid grid-cols-1 sm:grid-cols-3">
+        {member.roles.map((role, index) => {
+          let partyColors = { main: "gray-700" };
+          console.log(role)
+          switch (role.party) {
+            case "R":
+              partyColors.main = "#e53e3e"; //bg-red-600
+              partyColors.opposing = "#3182ce";
+              break;
+            case "D":
+              partyColors.main = "#3182ce"; //bg-blue-600
+              partyColors.opposing = "#e53e3e";
+              break;
+          }
+          return (
             <div
               key={index}
-              className="border m-2 flex-1 flex flex-col rounded text-gray-800 bg-white px-2"
+              className="border col-span-1 m-2 flex-1 flex flex-col rounded text-gray-800 bg-white px-2"
             >
               <div className="border-4 font-bold text-center">
                 <h2>
@@ -35,15 +38,19 @@ export default function InitialStats(props) {
               </div>
               <div className="border-b-2 border-gray-600 text-sm flex flex-row justify-evenly p-2">
                 <div>
-                <p>Total votes: {role.total_votes}</p>
-                <p>Votes with party: {role.votes_with_party_pct}%</p>
-                <p>Votes against party {role.votes_against_party_pct}%</p>
+                  <p>Total votes: {role.total_votes}</p>
+                  <p style={{color:partyColors.main}}>Votes with party: {role.votes_with_party_pct}%</p>
+                  <p style={{color:partyColors.opposing}}>Votes against party {role.votes_against_party_pct}%</p>
                 </div>
-                <PieChart data={[role.votes_with_party_pct,role.votes_against_party_pct, role.missed_votes_pct]} htmlId={`p${index}`} colors={partyColors} />
-              </div>
-              <div className="border-b-2 border-gray-600 text-sm flex justify-between">
-                <p>Bills Sponsored: {role.bills_sponsored}</p>
-                <p>Bills Co-Sponsored: {role.bills_cosponsored}</p>
+                <PieChart
+                  data={[
+                    role.votes_with_party_pct,
+                    role.votes_against_party_pct,
+                    role.missed_votes_pct
+                  ]}
+                  htmlId={`p${index}`}
+                  colors={partyColors}
+                />
               </div>
               <div>
                 {role.committees
@@ -51,15 +58,18 @@ export default function InitialStats(props) {
                   .map((com, index) => (
                     <div key={`com${index}`}>
                       <p className="text-xs">
-                        <span className="font-bold">{com.title ? com.title:"Member"}</span> - {com.name}
+                        <span className="font-bold">
+                          {com.title ? com.title : "Member"}
+                        </span>{" "}
+                        - {com.name}
                       </p>
                     </div>
                   ))}
               </div>
             </div>
-          )})}
-        </div>
-    </div>
+          );
+        })}
+      </div>
   );
 }
 
