@@ -10,23 +10,29 @@ export default function Trips(props) {
       let cellClass = " border-l border-gray-900 px-2";
       
        rows = props.trips.results.map((trip, index) => {
-         let rowClass = "bg-red-200"
+         let rowClass = "bg-white"
          if(trip.is_member){
           rowClass += " font-bold"
          }
          if(index % 2 === 0){
-          rowClass += " bg-indigo-200"
+          rowClass += " bg-gray-300"
          }
          return (
            <tr className={rowClass}>
              <td className={cellClass}>{trip.destination}</td>
+             <td className={cellClass}>{trip.traveler}</td>
+
              <td className={cellClass + " w-16"}>
                {moment(trip.departure_date).format("MM/DD/YY")}
              </td>
              <td className={cellClass}>{trip.sponsor}</td>
 
              <td className={cellClass}>
-               <a className="text-blue-600 underline" target="_blank" href={trip.pdf_url}>
+               <a
+                 className="text-blue-600 underline"
+                 target="_blank"
+                 href={trip.pdf_url}
+               >
                  Link
                </a>
              </td>
@@ -41,8 +47,9 @@ export default function Trips(props) {
     <div className="flex flex-col items-center">
       <table className="bg-gray-200 border-collapse text-gray-900 text-xs">
         <thead>
-          <tr className="">
+          <tr className="border-b-2 border-gray-800">
             <th className={headerClass}>Destination</th>
+            <th className={headerClass}>Traveler</th>
             <th className={headerClass}>Date</th>
             <th className={headerClass}>Sponsor</th>
             <th className={headerClass}>PDF</th>

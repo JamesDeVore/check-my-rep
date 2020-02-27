@@ -26,13 +26,11 @@ export default function MemberDetails(props) {
           See ya later, <em>Alligator</em>!
         </div>
         <div label="Trips" className="h-auto">
-          <div className="flex relative p-8 bg-green-500">
+          <div className="flex relative p-8 bg-gray-500">
             <div className="flex flex-col w-full">
               <div>
-                <h2 className=" text-center text-2xl">Recently Funded Staff Trips</h2>
-                <p className=" text-center subtitle text-sm">
-                  These are trips funded by the member's office
-                </p>
+                <h2 className=" text-center text-2xl">Recent Privately Funded Trips</h2>
+
               </div>
               <div className=" w-full flex flex-row justify-evenly">
               <Trips trips={trips} />
