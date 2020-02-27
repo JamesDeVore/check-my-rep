@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tabs from "./libs/Tabs";
 import TripMap from "./libs/Map";
 import Trips from "./libs/Trips";
+import Bills from './libs/Bills'
 
 export default function MemberDetails(props) {
   const [expenses, setExpenses] = useState(null);
@@ -23,14 +24,13 @@ export default function MemberDetails(props) {
     <div className="w-full">
       <Tabs>
         <div label="Bills">
-          See ya later, <em>Alligator</em>!
+          {bills? <Bills bills={bills} />: null}
         </div>
         <div label="Trips" className="h-auto">
           <div className="flex relative p-8 bg-gray-500">
             <div className="flex flex-col w-full">
               <div>
                 <h2 className=" text-center text-2xl">Recent Privately Funded Trips</h2>
-
               </div>
               <div className=" w-full flex flex-row justify-evenly">
               <Trips trips={trips} />
