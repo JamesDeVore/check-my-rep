@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-
-export default function GetStarted() {
+import {Link, Prompt, Redirect} from 'react-router-dom'
+export default function GetStarted(props) {
   let [members, setMembers] = useState([]);
   let [cachedMembers, setCachedMembers] = useState([])
   let [memberInput, setMemberInput] = useState("");
   let [selectedState, setSelectedState] = useState("");
   let [states, setStates] = useState([]);
-  let [validated, setValidated] = useState(false)
+  let [validated, setValidated] = useState(false);
+  let [toNext, setToNext] = useState(false);
+  let [member,setMember] = useState(null);
   
   useEffect(() => {
     fetch("/reps/filterby")
@@ -50,11 +52,16 @@ export default function GetStarted() {
      let foundMember = cachedMembers.find(membs => `${membs.first_name.toUpperCase()} ${membs.last_name.toUpperCase()}` === input.toUpperCase());
      if(foundMember){
        console.log(foundMember)
+       setMember(foundMember)
        setValidated(true);
      } else {
        setValidated(false)
      }
-  
+  }
+  const handleGetStarted = e => {
+    if(validated){
+      setToNext(true)
+    }
   }
 
   let dataList = members.map((memberObj,index) => (
@@ -70,31 +77,50 @@ export default function GetStarted() {
     <option key={state} value={state}>{state}</option>
   ));
 
-  // console.log(members);
-  return (
-    <div className="bg-blue-500 flex p-4 flex-col items-center">
+  let buttonClass =
+    "ml-4 mt-4 bg-green-800 hover:bg-green-700 text-gray-200 font-semibold py-2 px-4 border border-green-400 rounded shadow";
+  if(!validated){
+    buttonClass += " cursor-not-allowed opacity-50";
+  }
+  console.log(members);
+  if(toNext){
+    return <Redirect to={`/stats/${member.id}`} />
+  } else {
+
+    return (
+      <div className="bg-blue-800 rounded flex p-4 flex-col items-center">
       <h2 className="font-bold">Get Started:</h2>
-      <div className="text-black mt-4 mb-4  flex flex-col items-center">
-        <div className="flex flex-col w-full items-center mx-auto">
+      <div className="text-black mt-4 mb-4  flex flex-row items-center justify-center flex-wrap">
+        <div className="flex flex-col  items-center mx-auto">
           <h3>Search By Name</h3>
           <input
-            className="m-2 p-4"
+            className="m-2 p-4 rounded"
             type="text"
             placeholder="Search by name"
             list="members"
             value={memberInput}
             onChange={handleMemberInput}
-          />
+            />
           <datalist id="members">{dataList}</datalist>
         </div>
-        <div className="flex flex-col w-full items-center mx-auto">
+        <div className="flex flex-col  items-center mx-auto">
           <h3>Or Filter by State</h3>
-          <select onChange={handleStateSelect} value={selectedState} className="m-2 p-4 w-full" type="text" placeholder="or state">
+          <select
+            onChange={handleStateSelect}
+            value={selectedState}
+            className="m-2 p-4 w-full rounded"
+            type="text"
+            placeholder="or state"
+            >
             <option value="">All</option>
             {stateOptions}
           </select>
         </div>
+        <button className={buttonClass} onClick={handleGetStarted}>
+          Search
+        </button>
       </div>
     </div>
   );
+}
 }

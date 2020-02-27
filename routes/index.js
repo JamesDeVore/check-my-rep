@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var fetch = require("node-fetch");
+var fs = require("fs");
+var path = require('path')
 
 const _membersAPIWRAPPER = async (house = "house", num = "116") => {
   let ProPubResponse = await fetch(
@@ -46,6 +48,61 @@ const _memberRecentVotesWrapper = async (id) => {
     .catch(result => (result.status = "ERROR"));
   return ProPubResponse;
 }
+
+const  getQuarter = (d)  => {
+  d = d || new Date();
+  var m = Math.floor(d.getMonth()/3) + 2;
+  return m > 4? m - 4 : m;
+}
+const _getQuarterlyExpensesWrapper = async (id) => {
+  let date = new Date();
+
+  let ProPubResponse = await fetch(
+    `https://api.propublica.org/congress/v1/members/${id}/office_expenses/2020/${getQuarter(date)}.json`,
+    {
+      method: "GET",
+      headers: {
+        "X-API-KEY": process.env.API_KEY
+      }
+    }
+  )
+    .then(result => result.json())
+    .catch(result => (result.status = "ERROR"));
+  return ProPubResponse;
+};
+
+const _getPrivateTripsWrapper = async (id) => {
+  let date = new Date();
+
+  let ProPubResponse = await fetch(
+    `https://api.propublica.org/congress/v1/members/${id}/private-trips.json`,
+    {
+      method: "GET",
+      headers: {
+        "X-API-KEY": process.env.API_KEY
+      }
+    }
+  )
+    .then(result => result.json())
+    .catch(result => (result.status = "ERROR"));
+  return ProPubResponse;
+};
+const _getRecentBillsWrapper = async id => {
+  let date = new Date();
+
+  let ProPubResponse = await fetch(
+    `https://api.propublica.org/congress/v1/members/${id}/bills/introduced.json`,
+    {
+      method: "GET",
+      headers: {
+        "X-API-KEY": process.env.API_KEY
+      }
+    }
+  )
+    .then(result => result.json())
+    .catch(result => (result.status = "ERROR"));
+  return ProPubResponse;
+};
 
 
 /* GET home page. */
@@ -93,7 +150,7 @@ router.get('/filterBy', async (req,res,next) => {
   res.send(returnData)
 
 })
-router.get('/member', async (req,res,next) => {
+router.get('/byID', async (req,res,next) => {
   let returnData = {
     success:false,
     data:null,
@@ -104,7 +161,8 @@ router.get('/member', async (req,res,next) => {
     returnData.message = "Invalid or missing ID";
     return res.send(returnData)
   }
-  let thisMember = await _individualMemberAPIWrapper(memberID);
+  // let thisMember = await _individualMemberAPIWrapper(memberID);
+  let thisMember = require("./devResponses/single.json")
   res.send(thisMember)
 })
 router.get('/memberVotes', async (req,res,next) => {
@@ -119,7 +177,23 @@ router.get('/memberVotes', async (req,res,next) => {
       return res.send(returnData);
     }
     let thisMember = await _memberRecentVotesWrapper(memberID);
+
     res.send(thisMember);
+});
+router.get('/memberDetails', async (req,res,next) => {
+  let { memberID } = req.query;
+  if (!memberID) {
+    returnData.message = "Invalid or missing ID";
+    return res.send(returnData);
+  }
+  // let expenses = await _getQuarterlyExpensesWrapper(memberID);
+  // let trips = await _getPrivateTripsWrapper(memberID);
+  // let bills = await _getRecentBillsWrapper(memberID);
+  //for convenience 
+  // console.log(expenses)
+  // fs.writeFileSync(path.resolve(__dirname,"devResponses/details.json"),JSON.stringify({expenses,trips,bills}))
+  res.send(require("./devResponses/details.json"))
+
 })
 
 module.exports = router;
