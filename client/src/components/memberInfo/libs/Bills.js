@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import moment from "moment";
 export default function Bills(props) {
-  console.log(props);
   let { bills } = props.bills.results[0];
-
   const [selectedBill, setSelectedBill] = useState(0);
-
   //for ease
   let bill = bills[selectedBill];
+  if(bills.length > 10){
+    bills.length = 10; //just to prevent a ton of bills
+  }
   return (
     <div className="grid grid-cols-6 grid-rows-1">
       <div className="col-span-1 col-start-1 flex flex-col bg-gray-100">

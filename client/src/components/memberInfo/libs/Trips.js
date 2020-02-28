@@ -8,7 +8,9 @@ export default function Trips(props) {
     let rows = []
     if(props.trips){
       let cellClass = " border-l border-gray-900 px-2";
-      
+      if(props.trips.results.length > 10){
+        props.trips.results.length = 10; //prolong the use of my key
+      }
        rows = props.trips.results.map((trip, index) => {
          let rowClass = "bg-white"
          if(trip.is_member){

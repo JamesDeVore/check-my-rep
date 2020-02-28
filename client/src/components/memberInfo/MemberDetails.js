@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Tabs from "./libs/Tabs";
 import TripMap from "./libs/Map";
 import Trips from "./libs/Trips";
-import Bills from './libs/Bills'
+import Bills from "./libs/Bills";
+import Expenses from './libs/Expenses'
 
 export default function MemberDetails(props) {
   const [expenses, setExpenses] = useState(null);
@@ -23,24 +24,26 @@ export default function MemberDetails(props) {
   return (
     <div className="w-full">
       <Tabs>
-        <div label="Bills">
-          {bills? <Bills bills={bills} />: null}
-        </div>
+        <div label="Bills">{bills ? <Bills bills={bills} /> : null}</div>
         <div label="Trips" className="h-auto">
-          <div className="flex relative p-8 bg-gray-500">
-            <div className="flex flex-col w-full">
-              <div>
-                <h2 className=" text-center text-2xl">Recent Privately Funded Trips</h2>
-              </div>
-              <div className=" w-full flex flex-row justify-evenly">
-              <Trips trips={trips} />
-              <TripMap trips={trips} />
+          {trips ? (
+            <div className="flex relative p-8 bg-gray-500">
+              <div className="flex flex-col w-full">
+                <div>
+                  <h2 className=" text-center text-2xl">
+                    Recent Privately Funded Trips
+                  </h2>
+                </div>
+                <div className=" w-full flex flex-row justify-evenly">
+                  <Trips trips={trips} />
+                  <TripMap trips={trips} />
+                </div>
               </div>
             </div>
-          </div>
+          ) : null}
         </div>
-        <div label="Expenses">
-          Nothing to see here, this tab is <em>extinct</em>!
+        <div label="Quarterly Expenses">
+          {expenses? <Expenses expenses={expenses} /> : null}
         </div>
       </Tabs>
     </div>
