@@ -88,13 +88,13 @@ export default function GetStarted(props) {
   } else {
 
     return (
-      <div className="bg-blue-800 rounded flex p-4 flex-col items-center">
+      <div className="bg-blue-900 rounded flex p-4 flex-col items-center w-2/3">
       <h2 className="font-bold">Get Started:</h2>
-      <div className="text-black mt-4 mb-4  flex flex-row items-center justify-center flex-wrap">
+      <div className="mt-4 mb-4  flex flex-row items-center justify-center flex-wrap">
         <div className="flex flex-col  items-center mx-auto">
           <h3>Search By Name</h3>
           <input
-            className="m-2 p-4 rounded"
+            className="m-2 p-4 rounded text-black"
             type="text"
             placeholder="Search by name"
             list="members"
@@ -108,7 +108,7 @@ export default function GetStarted(props) {
           <select
             onChange={handleStateSelect}
             value={selectedState}
-            className="m-2 p-4 w-full rounded"
+            className="m-2 p-4 w-full rounded text-black"
             type="text"
             placeholder="or state"
             >

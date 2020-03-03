@@ -27,12 +27,15 @@ export default function VotingTimeline(props) {
             });
         };
         Promise.all(
-          res.results[0].votes.map(voteObj => getSingleVote(voteObj))
+          res.results[0].votes.slice(0,10).map(voteObj => getSingleVote(voteObj))
         ).then(vals => setMemberVotes(vals));
       });
   }, []);
 
   const renderVotes = () => {
+    if(memberVotes.length > 10){
+      memberVotes = memberVotes.slice(0,10);
+    }
     let votes = memberVotes.map((vote, index) => {
       return <VoteItem voteObj={vote} key={index} />;
     });

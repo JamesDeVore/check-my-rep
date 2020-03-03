@@ -20,7 +20,7 @@ export default function MemberDetails(props) {
         setTrips(res.trips);
       });
   }, []);
-  console.log(props.member)
+  console.log(props.member,bills,trips,expenses)
   const name = `${props.member.first_name} ${props.member.last_name}`;
   return (
     <div className="w-full">
@@ -38,7 +38,7 @@ export default function MemberDetails(props) {
                     * indicates a trip taken by {name}{" "}
                   </p>
                 </div>
-                <div className=" bg-white overflow-scroll rounded shadow-lg sm:mx-4 sm:p-6 sm:text-sm text-xs">
+                <div className=" bg-white overflow-scroll rounded shadow-lg sm:mx-4 sm:p-6 sm:flex sm:flex-row text-sm text-xs">
                   <Trips trips={trips} />
                   <div className="bg-white p-6 rounded shadow-lg">
                     <TripMap trips={trips} />

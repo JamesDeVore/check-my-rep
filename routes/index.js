@@ -210,9 +210,9 @@ router.get("/byID", async (req, res, next) => {
     returnData.message = "Invalid or missing ID";
     return res.send(returnData);
   }
-  // let thisMember = await _individualMemberAPIWrapper(memberID);
+  let thisMember = await _individualMemberAPIWrapper(memberID);
   // fs.writeFileSync(path.resolve(__dirname,"devResponses/single.json"), JSON.stringify(thisMember))
-  let thisMember = require("./devResponses/single.json");
+  // let thisMember = require("./devResponses/single.json");
   res.send(thisMember);
 });
 router.get("/memberVotes", async (req, res, next) => {
@@ -226,8 +226,8 @@ router.get("/memberVotes", async (req, res, next) => {
     returnData.message = "Invalid or missing ID";
     return res.send(returnData);
   }
-  // let thisMember = await _memberRecentVotesWrapper(memberID);
-  let thisMember = require("./devResponses/votes.json");
+  let thisMember = await _memberRecentVotesWrapper(memberID);
+  // let thisMember = require("./devResponses/votes.json");
   // fs.writeFileSync(path.resolve(__dirname,"devResponses/votes.json"), JSON.stringify(thisMember));
 
   res.send(thisMember);
@@ -238,31 +238,31 @@ router.get("/memberDetails", async (req, res, next) => {
     returnData.message = "Invalid or missing ID";
     return res.send(returnData);
   }
-  // let expenses = await _getLastYearExpenses(memberID);
-  // let trips = await _getPrivateTripsWrapper(memberID);
-  // let bills = await _getRecentBillsWrapper(memberID);
+  let expenses = await _getLastYearExpenses(memberID);
+  let trips = await _getPrivateTripsWrapper(memberID);
+  let bills = await _getRecentBillsWrapper(memberID);
   // for convenience
   // console.log(expenses);
   // fs.writeFileSync(
   //   path.resolve(__dirname, "devResponses/details.json"),
   //   JSON.stringify({ expenses, trips, bills })
   // );
-  res.send(require("./devResponses/details.json"));
-  // res.send({ expenses, trips, bills });
+  // res.send(require("./devResponses/details.json"));
+  res.send({ expenses, trips, bills });
 });
 router.post("/getVotes", async (req, res, next) => {
   let { url } = req.body;
   console.log(url);
-  // let thisResponse = await _generalAPIWrapper(url);
+  let thisResponse = await _generalAPIWrapper(url);
   let file = url.split("/");
   let fileName = file[file.length -1];
   // fs.writeFileSync(path.resolve(__dirname,"devResponses","voteItems",fileName),JSON.stringify(thisResponse))
   // console.log(thisResponse);
 
-  // res.send(thisResponse);
-  res.send(
-    require(path.resolve(__dirname, "devResponses", "voteItems", fileName))
-  );
+  res.send(thisResponse);
+  // res.send(
+  //   require(path.resolve(__dirname, "devResponses", "voteItems", fileName))
+  // );
 });
 
 module.exports = router;
