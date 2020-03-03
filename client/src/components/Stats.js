@@ -11,6 +11,7 @@ import BasicInfo from "./BasicInfo";
 import InitialStats from "./InitialStats";
 import LoadingScreen from "./LoadingScreen";
 import MemberDetails from "./memberInfo/MemberDetails";
+import VotingTimeline from './Timeline/index';
 export default function Stats(props) {
   let { id } = useParams();
   const [loading, setLoading] = useState(false);
@@ -37,8 +38,8 @@ export default function Stats(props) {
         <div className="sm:row-span-1 sm:col-span-4">
           {memberObj ? <MemberDetails member={memberObj} /> : null}
         </div>
-        <div className="w-full bg-red-600 sm:row-span-1 sm:col-span-4">
-          <h1>Voting timeline</h1>
+        <div className="bg-gray-600 px-4 sm:col-span-4 sm:row-span-1 w-full">
+          {memberObj ? <VotingTimeline member={memberObj} /> : null}
         </div>
       </div>
     </>

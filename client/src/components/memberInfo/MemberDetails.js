@@ -14,37 +14,41 @@ export default function MemberDetails(props) {
     fetch(`/reps/memberDetails?memberID=${props.member.id}`)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        // console.log(res);
         setBills(res.bills);
         setExpenses(res.expenses);
         setTrips(res.trips);
       });
   }, []);
-
+  console.log(props.member)
+  const name = `${props.member.first_name} ${props.member.last_name}`;
   return (
     <div className="w-full">
       <Tabs>
         <div label="Bills">{bills ? <Bills bills={bills} /> : null}</div>
         <div label="Trips" className="h-auto">
           {trips ? (
-            <div className="flex relative p-8 bg-gray-500">
+            <div className="flex relative p-8 bg-gray-200 text-black">
               <div className="flex flex-col w-full">
                 <div>
                   <h2 className=" text-center text-2xl">
                     Recent Privately Funded Trips
                   </h2>
+                  <p className="subtitle text-center text-sm font-bold">* indicates a trip taken by {name} </p>
                 </div>
-                <div className=" w-full flex flex-row justify-evenly">
+                <div className=" flex flex-row items-start justify-evenly w-full">
                   <Trips trips={trips} />
-                  <TripMap trips={trips} />
+                  <div className="bg-white p-6 rounded shadow-lg">
+                    <TripMap trips={trips} />
+                  </div>
                 </div>
               </div>
             </div>
           ) : null}
         </div>
-        <div label="Quarterly Expenses">
+        {/* <div label="Quarterly Expenses">
           {expenses? <Expenses expenses={expenses} /> : null}
-        </div>
+        </div> */}
       </Tabs>
     </div>
   );

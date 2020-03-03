@@ -27,3 +27,13 @@ body{
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-rows: auto auto auto
 }
+
+.outlined {
+    color: black;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+.bar {
+  
+}

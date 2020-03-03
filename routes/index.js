@@ -74,7 +74,8 @@ const _getLastYearExpenses = async id => {
     //    expenses.concat(ProPubResponse)
     promises.push(
       fetch(
-        `https://api.propublica.org/congress/v1/members/${id}/office_expenses/${date.getFullYear() -1}/${i}.json`,
+        `https://api.propublica.org/congress/v1/members/${id}/office_expenses/${date.getFullYear() -
+          1}/${i}.json`,
         {
           method: "GET",
           headers: {
@@ -126,6 +127,17 @@ const _getRecentBillsWrapper = async id => {
     .then(result => result.json())
     .catch(result => (result.status = "ERROR"));
   return ProPubResponse;
+};
+
+const _generalAPIWrapper = async url => {
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      "X-API-KEY": process.env.API_KEY
+    }
+  })
+    .then(result => result.json())
+    .catch(result => (result.status = "ERROR"));
 };
 
 /* GET home page. */
@@ -214,7 +226,9 @@ router.get("/memberVotes", async (req, res, next) => {
     returnData.message = "Invalid or missing ID";
     return res.send(returnData);
   }
-  let thisMember = await _memberRecentVotesWrapper(memberID);
+  // let thisMember = await _memberRecentVotesWrapper(memberID);
+  let thisMember = require("./devResponses/votes.json");
+  // fs.writeFileSync(path.resolve(__dirname,"devResponses/votes.json"), JSON.stringify(thisMember));
 
   res.send(thisMember);
 });
@@ -235,6 +249,20 @@ router.get("/memberDetails", async (req, res, next) => {
   // );
   res.send(require("./devResponses/details.json"));
   // res.send({ expenses, trips, bills });
+});
+router.post("/getVotes", async (req, res, next) => {
+  let { url } = req.body;
+  console.log(url);
+  // let thisResponse = await _generalAPIWrapper(url);
+  let file = url.split("/");
+  let fileName = file[file.length -1];
+  // fs.writeFileSync(path.resolve(__dirname,"devResponses","voteItems",fileName),JSON.stringify(thisResponse))
+  // console.log(thisResponse);
+
+  // res.send(thisResponse);
+  res.send(
+    require(path.resolve(__dirname, "devResponses", "voteItems", fileName))
+  );
 });
 
 module.exports = router;

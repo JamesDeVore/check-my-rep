@@ -12,7 +12,7 @@ export default function PieChart(props) {
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
         
-    console.log(props)
+    // console.log(props)
     var color = d3.scaleOrdinal()
       .range([props.colors.opposing, props.colors.main, "#d69e2e"]);
 
