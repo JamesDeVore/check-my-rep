@@ -28,17 +28,17 @@ export default function Stats(props) {
   return (
     <>
       {/* <LoadingScreen loading={loading} /> */}
-      <div className="text-white border StatsGrid gap-2   m-2">
-        <div className=" border h-full p-2 bg-blue-500 sm:col-span-1 sm:row-span-1">
+      <div className="text-gray-900 border bg-gray-200 StatsGrid gap-2  p-4">
+        <div className="bg-blue-500 border col-span-4 h-full p-2 sm:col-span-1 sm:row-span-1">
           {memberObj ? <BasicInfo member={memberObj} /> : null}
         </div>
-        <div className="p-4 border w-full bg-gray-600 sm:col-span-3 row-span-1">
+        <div className="sm:p-4 p-2 border w-full bg-gray-600 col-span-4 sm:col-span-3 row-span-1">
           {memberObj ? <InitialStats member={memberObj} /> : null}
         </div>
-        <div className="sm:row-span-1 sm:col-span-4">
+        <div className="sm:row-span-1 sm:col-span-4 col-span-4">
           {memberObj ? <MemberDetails member={memberObj} /> : null}
         </div>
-        <div className="bg-gray-600 px-4 sm:col-span-4 sm:row-span-1 w-full">
+        <div className="bg-gray-600 col-span-4 px-4 sm:col-span-4 sm:row-span-1 w-full">
           {memberObj ? <VotingTimeline member={memberObj} /> : null}
         </div>
       </div>

@@ -28,15 +28,17 @@ export default function MemberDetails(props) {
         <div label="Bills">{bills ? <Bills bills={bills} /> : null}</div>
         <div label="Trips" className="h-auto">
           {trips ? (
-            <div className="flex relative p-8 bg-gray-200 text-black">
+            <div className="bg-gray-200 flex p-4 relative sm:p-8 text-black">
               <div className="flex flex-col w-full">
                 <div>
                   <h2 className=" text-center text-2xl">
                     Recent Privately Funded Trips
                   </h2>
-                  <p className="subtitle text-center text-sm font-bold">* indicates a trip taken by {name} </p>
+                  <p className="subtitle text-center text-sm font-bold">
+                    * indicates a trip taken by {name}{" "}
+                  </p>
                 </div>
-                <div className=" flex flex-row items-start justify-evenly w-full">
+                <div className=" bg-white overflow-scroll rounded shadow-lg sm:mx-4 sm:p-6 sm:text-sm text-xs">
                   <Trips trips={trips} />
                   <div className="bg-white p-6 rounded shadow-lg">
                     <TripMap trips={trips} />

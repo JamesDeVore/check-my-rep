@@ -46,7 +46,7 @@ export default function Trips(props) {
   }
   let headerClass = "border-gray-900 border-l px-8";
   return (
-    <div className="bg-white mx-4 p-6 rounded shadow-lg text-sm">
+    <div className="bg-white mx-4 sm:p-6 rounded shadow-lg text-sm">
       <table className="bg-gray-200 border border-black border-collapse rounded text-gray-900">
         <thead>
           <tr className="border-b-2 border-gray-800">

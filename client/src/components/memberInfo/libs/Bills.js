@@ -9,13 +9,13 @@ export default function Bills(props) {
     bills.length = 10; //just to prevent a ton of bills
   }
   return (
-    <div className="grid grid-cols-6 grid-rows-1">
-      <div className="col-span-1 col-start-1 flex flex-col bg-gray-100">
+    <div className="sm:grid sm:grid-cols-6 sm:grid-rows-1">
+      <div className="bg-gray-100 grid grid-cols-5 sm:col-span-1 sm:col-start-1 sm:flex sm:flex-col sm:flex-row text-xs">
         {bills.map((bill, index) => {
           let selected = index === selectedBill;
 
           let selectorClass =
-            "bg-gray-100 border border-gray-400 cursor-pointer duration-200 hover:bg-gray-500 px-2 py-1 rounded text-gray-900 transition-colors";
+            "bg-gray-100 mb-1 border border-gray-400 cursor-pointer duration-200 hover:bg-gray-500 px-2 py-1 rounded text-gray-900 transition-colors";
           if (selected) {
             selectorClass += " bg-gray-400";
           }
@@ -29,9 +29,9 @@ export default function Bills(props) {
           );
         })}
       </div>
-      <div className=" text-black col-span-5 col-start-2 bg-gray-700 p-10">
+      <div className=" text-black col-span-5 col-start-2 bg-gray-700 sm:p-8 p-4">
         <div className="mx-auto bg-white p-4">
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row text-xs justify-between">
             <div className="flex flex-col">
               <h2 className="font-hairline text-gray-600 text-center">
                 {bill.committees}
@@ -44,7 +44,7 @@ export default function Bills(props) {
               {moment(bill.introduced_date).format("MMM DD,YYYY")}
             </p>
           </div>
-          <h1 className="text-2xl font-bold text-center">{bill.short_title}</h1>
+          <h1 className="sm:text-2xl text-md font-bold text-center">{bill.short_title}</h1>
           <hr />
 
           <p className="p-4 text-sm">{bill.summary}</p>

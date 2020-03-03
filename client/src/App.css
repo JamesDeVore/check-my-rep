@@ -1,9 +1,7 @@
 .welcomeBacksplash {
   background-color: rgba(99, 99, 99, 0.644)
 }
-body{
-  background-color: black;
-}
+
 .tab-list {
   border-bottom: 1px solid #ccc;
   padding-left: 0;
@@ -35,5 +33,5 @@ body{
   -webkit-text-stroke-color: black;
 }
 .bar {
-  
+
 }

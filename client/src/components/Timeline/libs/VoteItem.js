@@ -16,9 +16,11 @@ export default function VoteItem(props) {
       n: 80 - (vote.democratic.no / (vote.democratic.yes + vote.democratic.no) *50)
     }
   };
+
+  let voteBoxClass = "border h-24 h-32 sm:px-6";
   let totalVotes = voteObj.total.yes + voteObj.total.no;
   return (
-    <div className="grid shadow-lg rounded p-2 bg-white grid-cols-2 relative border col-span-2">
+    <div className="bg-white border col-span-2 col-span-4 grid grid-cols-2 p-2 relative rounded shadow-lg sm:col-span-2">
       <div className="col-span-2">
         <div className="flex text-black justify-between border-gray-700 border-b-2">
           <p>{voteObj.bill.number}</p>
@@ -32,11 +34,11 @@ export default function VoteItem(props) {
           {voteObj.question}
         </h3>
       </div>
-      <div className="col-span-2 grid grid-cols-2 text-black">
-        <div className="col-span-1 text-center border font-bold text-xl">
+      <div className="col-span-2 grid grid-cols-2 text-black ">
+        <div className="col-span-1 text-center border font-bold text-lg sm:text-xl">
           Democrats
         </div>
-        <div className="col-span-1 text-center border font-bold text-xl">
+        <div className="col-span-1 text-center border font-bold text-lg sm:text-xl">
           Republicans
         </div>
       </div>
@@ -44,22 +46,22 @@ export default function VoteItem(props) {
         <div className="col-span-1 font-bold grid grid-rows-2 text-center">
           <div
             style={{ backgroundColor: `hsl(209,61.6%,${styles.d.y}%)` }}
-            className="border h-32 px-6"
+            className={voteBoxClass}
           >
             <h1 className="border-b-2 text-2xl underline w-full">Yes</h1>
             <h1 className="text-xl">Total Votes: {vote.democratic.yes}</h1>
-            <h1 className="">
+            <h1 className="hidden sm:block">
               Overall:{" "}
               {Math.round((vote.democratic.yes / totalVotes) * 10000) / 100}%
             </h1>
           </div>
           <div
             style={{ backgroundColor: `hsl(209,61.6%,${styles.d.n}%)` }}
-            className="border h-32 px-6"
+            className={voteBoxClass}
           >
             <h1 className="border-b-2 text-2xl underline w-full">No</h1>
             <h1 className="text-xl">Total Votes: {vote.democratic.no}</h1>
-            <h1 className="">
+            <h1 className="hidden sm:block">
               Overall:{" "}
               {Math.round((vote.democratic.no / totalVotes) * 10000) / 100}%
             </h1>
@@ -68,22 +70,22 @@ export default function VoteItem(props) {
         <div className="col-span-1 font-bold grid grid-rows-2 text-center">
           <div
             style={{ backgroundColor: `hsl(0,86.3%,${styles.r.y}%)` }}
-            className="border h-32 px-6"
+            className={voteBoxClass}
           >
             <h1 className="border-b-2 text-2xl underline w-full">Yes</h1>
             <h1 className="text-xl">Total Votes: {vote.republican.yes}</h1>
-            <h1 className="">
+            <h1 className="hidden sm:block">
               Overall:{" "}
               {Math.round((vote.republican.yes / totalVotes) * 10000) / 100}%
             </h1>
           </div>
           <div
             style={{ backgroundColor: `hsl(0,86.3%,${styles.r.n}%)` }}
-            className="border h-32 px-6"
+            className={voteBoxClass}
           >
             <h1 className="border-b-2 text-2xl underline w-full">No</h1>
             <h1 className="text-xl">Total Votes: {vote.republican.no}</h1>
-            <h1 className="">
+            <h1 className="hidden sm:block">
               Overall:{" "}
               {Math.round((vote.republican.no / totalVotes) * 10000) / 100}%
             </h1>
@@ -91,10 +93,12 @@ export default function VoteItem(props) {
         </div>
         <div
           style={{ left: "50%", top: "50%" }}
-          className="-ml-16 -mt-16 absolute bg-white border-8 border-gray-500 flex flex-col h-32 items-center justify-center rounded-full text-black w-32"
+          className="-ml-10 -mt-8 absolute bg-white border-2 border-gray-500 flex flex-col h-16 items-center justify-center rounded-full sm:-ml-16 sm:-mt-16 sm:border-8 sm:h-32 sm:w-32 text-black w-20"
         >
-          <h1 className="text-lg font-hairline text-center ">My Vote:</h1>
-          <h2 className="text-center text-2xl font-bold underline">
+          <h1 className="sm:text-lg text-xs font-hairline text-center ">
+            My Vote:
+          </h1>
+          <h2 className="text-center sm:text-2xl text-sm font-bold underline">
             {voteObj.position}
           </h2>
         </div>
