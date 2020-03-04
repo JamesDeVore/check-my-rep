@@ -27,7 +27,7 @@ export default function VoteItem(props) {
           <p>{moment(voteObj.date).format("MMM DD, YYYY")}</p>
         </div>
         <h1 className="text-center text-lg text-black font-bold">
-          {vote.bill ? vote.bill.title : vote.description}
+          {vote.bill ? (vote.bill.short_title? vote.bill.short_title : vote.bill.title) : vote.description}
         </h1>
         <h3 className="subtitle text-center text-lg text-black">
           <span className="italic">Question: </span>
