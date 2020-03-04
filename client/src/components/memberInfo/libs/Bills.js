@@ -13,7 +13,7 @@ export default function Bills(props) {
       <div className="bg-gray-100 grid grid-cols-5 sm:col-span-1 sm:col-start-1 sm:flex sm:flex-col sm:flex-row text-xs">
         {bills.map((bill, index) => {
           let selected = index === selectedBill;
-
+          bill.summary = (bill.summary.length < 1 ?"Sorry, no summary is available for this bill":bill.summary)
           let selectorClass =
             "bg-gray-100 mb-1 border border-gray-400 cursor-pointer duration-200 hover:bg-gray-500 px-2 py-1 rounded text-gray-900 transition-colors";
           if (selected) {

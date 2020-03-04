@@ -25,7 +25,7 @@ export default function MemberDetails(props) {
   return (
     <div className="w-full">
       <Tabs>
-        <div label="Bills">{bills ? <Bills bills={bills} /> : null}</div>
+        <div label="Bills Sponsored">{bills ? <Bills bills={bills} /> : null}</div>
         <div label="Trips" className="h-auto">
           {trips ? (
             <div className="bg-gray-200 flex p-4 relative sm:p-8 text-black">
