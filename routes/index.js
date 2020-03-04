@@ -3,6 +3,10 @@ var router = express.Router();
 var fetch = require("node-fetch");
 var fs = require("fs");
 var path = require("path");
+const {
+  handleMongoCacheSave,
+  handleMongoFindByJName
+} = require("../cache/index");
 
 const _membersAPIWRAPPER = async (house = "house", num = "116") => {
   let ProPubResponse = await fetch(
@@ -89,7 +93,7 @@ const _getLastYearExpenses = async id => {
   }
 
   let resolved = await Promise.all(promises).then(vals => {
-    console.log(vals);
+    // console.log(vals);
     return vals;
   });
   // console.log(expenses)
@@ -251,18 +255,28 @@ router.get("/memberDetails", async (req, res, next) => {
   res.send({ expenses, trips, bills });
 });
 router.post("/getVotes", async (req, res, next) => {
-  let { url } = req.body;
-  console.log(url);
-  let thisResponse = await _generalAPIWrapper(url);
-  let file = url.split("/");
-  let fileName = file[file.length -1];
-  // fs.writeFileSync(path.resolve(__dirname,"devResponses","voteItems",fileName),JSON.stringify(thisResponse))
-  // console.log(thisResponse);
+  let { url, name } = req.body;
+
+  let existingVoteObj = await handleMongoFindByJName(name);
+
+  let thisResponse = null;
+  if (existingVoteObj.length > 0) {
+    console.log("Exists");
+    thisResponse = {
+      results: { votes: { vote: existingVoteObj[0] } },
+      status:"OK"
+    };
+  } else {
+    console.log("Does not exist");
+    //need to call it and save the response
+    thisResponse = await _generalAPIWrapper(url);
+    console.log(thisResponse);
+    delete thisResponse.results.votes.vote.positions;
+    thisResponse.results.votes.vote.jName = name;
+    await handleMongoCacheSave(thisResponse.results.votes);
+  }
 
   res.send(thisResponse);
-  // res.send(
-  //   require(path.resolve(__dirname, "devResponses", "voteItems", fileName))
-  // );
 });
 
 module.exports = router;

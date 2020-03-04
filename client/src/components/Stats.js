@@ -24,7 +24,7 @@ export default function Stats(props) {
         console.log(res)
         setMemberObj(res.results[0]);
       });
-  }, []);
+  }, [id]);
   return (
     <>
       {/* <LoadingScreen loading={loading} /> */}

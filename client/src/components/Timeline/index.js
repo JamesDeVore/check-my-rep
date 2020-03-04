@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-
+import {useParams} from 'react-router-dom'
 import VoteItem from "./libs/VoteItem";
 export default function VotingTimeline(props) {
+    let { id } = useParams();
   // console.log(props);
   let [memberVotes, setMemberVotes] = useState([]);
   useEffect(() => {
@@ -10,12 +11,14 @@ export default function VotingTimeline(props) {
       .then(res => {
         // console.log(res.results);
         const getSingleVote = async voteObj => {
+          const regEx = /\/congress.+|\/senate.+|\/both.+/;
+          let name = voteObj.vote_uri.match(regEx)[0];
           return fetch("/reps/getVotes", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ url: voteObj.vote_uri })
+            body: JSON.stringify({ url: voteObj.vote_uri,name })
           })
             .then(data => data.json())
             .then(data => {
@@ -27,15 +30,16 @@ export default function VotingTimeline(props) {
             });
         };
         Promise.all(
-          res.results[0].votes.slice(0,10).map(voteObj => getSingleVote(voteObj))
+          res.results[0].votes.map(voteObj => getSingleVote(voteObj))
         ).then(vals => setMemberVotes(vals));
       });
-  }, []);
+  }, [id]);
 
   const renderVotes = () => {
     if(memberVotes.length > 10){
       memberVotes = memberVotes.slice(0,10);
     }
+    console.log(memberVotes)
     let votes = memberVotes.map((vote, index) => {
       return <VoteItem voteObj={vote} key={index} />;
     });
