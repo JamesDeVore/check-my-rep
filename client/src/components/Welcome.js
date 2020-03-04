@@ -24,7 +24,7 @@ export default function Welcome() {
             member of congress
           </h3>
           <h4 className="text-lg">
-            Everything from voting patterns, bills sponsored,to recent trips
+            Everything from voting patterns, to bills sponsored, to recent trips
             paid for by their office.
           </h4>
         </div>

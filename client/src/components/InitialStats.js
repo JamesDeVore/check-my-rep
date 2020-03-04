@@ -32,7 +32,7 @@ export default function InitialStats(props) {
                 </h2>
                 <h2 className="font-thin">
                   {moment(role.start_date).format("MMM/YYYY")} -{" "}
-                  {moment(role.end).format("MMM/YYYY")}
+                  {moment(role.end_date).format("MMM/YYYY")}
                 </h2>
                 <h2></h2>
               </div>
@@ -41,11 +41,13 @@ export default function InitialStats(props) {
                   <p>Total votes: {role.total_votes}</p>
                   <p style={{color:partyColors.main}}>Votes with party: {role.votes_with_party_pct}%</p>
                   <p style={{color:partyColors.opposing}}>Votes against party {role.votes_against_party_pct}%</p>
+                  <p style={{color:"#d69e2e"}}>Missed votes: {role.missed_votes_pct}%</p>
+
                 </div>
                 <PieChart
                   data={[
-                    role.votes_with_party_pct,
                     role.votes_against_party_pct,
+                    role.votes_with_party_pct,
                     role.missed_votes_pct
                   ]}
                   htmlId={`p${index}`}
