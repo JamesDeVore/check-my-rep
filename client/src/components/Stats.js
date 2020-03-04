@@ -21,7 +21,7 @@ export default function Stats(props) {
     fetch(`/reps/byID?memberID=${id}`)
       .then(res => res.json())
       .then(res => {
-        // console.log(res)
+        console.log(res)
         setMemberObj(res.results[0]);
       });
   }, []);
