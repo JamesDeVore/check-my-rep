@@ -88,39 +88,39 @@ export default function GetStarted(props) {
   } else {
 
     return (
-      <div className="bg-blue-900 rounded flex p-4 flex-col items-center w-2/3">
-      <h2 className="font-bold">Get Started:</h2>
-      <div className="mt-4 mb-4  flex flex-row items-center justify-center flex-wrap">
-        <div className="flex flex-col  items-center mx-auto">
-          <h3>Search By Name</h3>
-          <input
-            className="m-2 p-4 rounded text-black"
-            type="text"
-            placeholder="Search by name"
-            list="members"
-            value={memberInput}
-            onChange={handleMemberInput}
+      <div className="bg-blue-900 flex flex-col items-center p-4 rounded sm:flex-col sm:items-center sm:w-2/3">
+        <h2 className="font-bold">Get Started:</h2>
+        <div className="mt-4 mb-4  flex flex-row items-center justify-center flex-wrap">
+          <div className="flex flex-col  items-center mx-auto">
+            <h3>Search By Name</h3>
+            <input
+              className="m-2 p-4 rounded text-black"
+              type="text"
+              placeholder="Search by name"
+              list="members"
+              value={memberInput}
+              onChange={handleMemberInput}
             />
-          <datalist id="members">{dataList}</datalist>
-        </div>
-        <div className="flex flex-col  items-center mx-auto">
-          <h3>Or Filter by State</h3>
-          <select
-            onChange={handleStateSelect}
-            value={selectedState}
-            className="m-2 p-4 w-full rounded text-black"
-            type="text"
-            placeholder="or state"
+            <datalist id="members">{dataList}</datalist>
+          </div>
+          <div className="flex flex-col  items-center mx-auto">
+            <h3>Or Filter by State</h3>
+            <select
+              onChange={handleStateSelect}
+              value={selectedState}
+              className="m-2 p-4 w-full rounded text-black"
+              type="text"
+              placeholder="or state"
             >
-            <option value="">All</option>
-            {stateOptions}
-          </select>
+              <option value="">All</option>
+              {stateOptions}
+            </select>
+          </div>
+          <button className={buttonClass} onClick={handleGetStarted}>
+            Search
+          </button>
         </div>
-        <button className={buttonClass} onClick={handleGetStarted}>
-          Search
-        </button>
       </div>
-    </div>
-  );
+    );
 }
 }

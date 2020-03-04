@@ -10,12 +10,12 @@ export default function Welcome() {
   };
   return (
     <div
-      className=" h-screen container border mx-auto flex flex-row justify-center p-10 text-gray-100"
+      className=" border container flex flex-row justify-center mx-auto p-10 sm:h-screen text-gray-100"
       style={divStyle}
     >
       <div className="flex flex-col h-full items-center justify-evenly p-4 rounded sm:w-4/5 welcomeBacksplash">
         <div className=" mb-6 flex-col flex items-center">
-          <h1 className="title text-gray-200 text-3xl font-bold">
+          <h1 className="font-bold mt-32 sm:mt-0 text-3xl text-gray-200 title">
             Check My Representative
           </h1>
           <hr className="m-8 w-4/5" />

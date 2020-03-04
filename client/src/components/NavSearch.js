@@ -98,38 +98,37 @@ export default function NavSearch(props) {
   } else {
     return (
       <>
-      {toNext? <Redirect to={`/stats/${member.id}`} /> : null}
-      <div className="flex flex-row items-center">
-
-        <div className="text-black flex flex-row items-center justify-center flex-wrap">
-          <div className="flex flex-col  items-center mx-auto">
-            <input
-              className="p-2 mx-2 rounded"
-              type="text"
-              placeholder="Search by name"
-              list="members"
-              value={memberInput}
-              onChange={handleMemberInput}
-            />
-            <datalist id="members">{dataList}</datalist>
+        {toNext ? <Redirect to={`/stats/${member.id}`} /> : null}
+        <div className="flex flex-row items-center">
+          <div className="text-black flex flex-row items-center justify-center flex-wrap">
+            <div className="flex flex-col  items-center mx-auto">
+              <input
+                className="m-1/2 p-2 rounded sm:mx-2 sm:w-auto w-20"
+                type="text"
+                placeholder="Search by name"
+                list="members"
+                value={memberInput}
+                onChange={handleMemberInput}
+              />
+              <datalist id="members">{dataList}</datalist>
+            </div>
+            <div className="flex flex-col hidden sm:block  items-center mx-auto">
+              <select
+                onChange={handleStateSelect}
+                value={selectedState}
+                className="p-2 mx-2 w-full rounded"
+                type="text"
+                placeholder="or state"
+              >
+                <option value="">All</option>
+                {stateOptions}
+              </select>
+            </div>
+            <button className={buttonClass} onClick={handleGetStarted}>
+              Search
+            </button>
           </div>
-          <div className="flex flex-col  items-center mx-auto">
-            <select
-              onChange={handleStateSelect}
-              value={selectedState}
-              className="p-2 mx-2 w-full rounded"
-              type="text"
-              placeholder="or state"
-            >
-              <option value="">All</option>
-              {stateOptions}
-            </select>
-          </div>
-          <button className={buttonClass} onClick={handleGetStarted}>
-            Search
-          </button>
         </div>
-      </div>
       </>
     );
   }
