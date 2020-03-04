@@ -92,10 +92,10 @@ export default function NavSearch(props) {
     buttonClass += " cursor-not-allowed opacity-50";
   }
   
-  if (toNext) {
+  // if (toNext) {
     
     
-  } else {
+  // } else {
     return (
       <>
         {toNext ? <Redirect to={`/stats/${member.id}`} /> : null}
@@ -131,5 +131,5 @@ export default function NavSearch(props) {
         </div>
       </>
     );
-  }
+  // }
 }
