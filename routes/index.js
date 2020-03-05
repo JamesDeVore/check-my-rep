@@ -5,7 +5,8 @@ var fs = require("fs");
 var path = require("path");
 const {
   handleMongoCacheSave,
-  handleMongoFindByJName
+  handleMongoFindByJName,
+  handleKnownCoords
 } = require("../cache/index");
 
 const _membersAPIWRAPPER = async (house = "house", num = "116") => {
@@ -261,13 +262,11 @@ router.post("/getVotes", async (req, res, next) => {
 
   let thisResponse = null;
   if (existingVoteObj.length > 0) {
-    console.log("Exists");
     thisResponse = {
       results: { votes: { vote: existingVoteObj[0] } },
       status:"OK"
     };
   } else {
-    console.log("Does not exist");
     //need to call it and save the response
     thisResponse = await _generalAPIWrapper(url);
     console.log(thisResponse);
@@ -278,5 +277,11 @@ router.post("/getVotes", async (req, res, next) => {
 
   res.send(thisResponse);
 });
+
+router.post('/getKnownCoords', (req,res,next) => {
+  let {place} = req.body;
+
+  let existingPlace = await handleKnownCoords(place)
+})
 
 module.exports = router;

@@ -55,7 +55,14 @@ var voteSchema = new Schema({
   }
 });
 
+var coordsSchema = new Schema({
+  destination:String,
+  lat:Schema.Decimal,
+  lng:Schema.Decimal
+})
+
 var Vote = mongoose.model("Vote", voteSchema, "votes");
+var Coords = mongoose.model("Coord", coordsSchema,"coords")
 const handleMongoCacheSave = async voteObj => {
   const mongoURI = `mongodb://${process.env.M_USER}:${process.env.M_PASS}@ds329058.mlab.com:29058/check-my-rep`;
   await mongoose.connect(mongoURI);
@@ -71,7 +78,25 @@ const handleMongoFindByJName = async jName => {
   return await Vote.find({ jName: jName });
 };
 
+const handleKnownCoords = async destination => {
+    const mongoURI = `mongodb://${process.env.M_USER}:${process.env.M_PASS}@ds329058.mlab.com:29058/check-my-rep`;
+    await mongoose.connect(mongoURI);
+
+    return await coordsSchema.find({destination:destination})
+}
+
+const handleMongoCoordSave = async tripObj => {
+  const mongoURI = `mongodb://${process.env.M_USER}:${process.env.M_PASS}@ds329058.mlab.com:29058/check-my-rep`;
+  await mongoose.connect(mongoURI);
+
+  var vote1 = new Coords(tripObj);
+  await vote1.save();
+};
+
+
 module.exports = {
-  handleMongoCacheSave: handleMongoCacheSave,
-  handleMongoFindByJName
+  handleMongoCacheSave,
+  handleMongoFindByJName,
+  handleKnownCoords,
+  handleMongoCoordSave
 };
