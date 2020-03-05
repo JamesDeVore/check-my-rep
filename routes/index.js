@@ -278,10 +278,10 @@ router.post("/getVotes", async (req, res, next) => {
   res.send(thisResponse);
 });
 
-router.post('/getKnownCoords', (req,res,next) => {
-  let {place} = req.body;
+// router.post('/getKnownCoords', (req,res,next) => {
+//   let {place} = req.body;
 
-  let existingPlace = await handleKnownCoords(place)
-})
+//   let existingPlace = await handleKnownCoords(place)
+// })
 
 module.exports = router;
